@@ -1,0 +1,4 @@
+This repository contains my photography related scripts/tools.
+
+order_cron.pl: A script to chronologically rename files from multiple cameras
+               based on the timestamp in the DateTimeOriginal EXIF tag.

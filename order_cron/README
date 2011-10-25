@@ -1,0 +1,75 @@
+order_cron.pl: A script to chronologically rename files from multiple cameras
+               based on the timestamp in the DateTimeOriginal EXIF tag.
+
+LICENSE:
+--------
+Copyright (C) 2011 Jason Hancock http://geek.jasonhancock.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+INSTALLATION
+------------
+
+1. Install ExifTool:
+     Linux: yum install perl-Image-ExifTool
+     OSX:   http://www.sno.phy.queensu.ca/~phil/exiftool/install.html#OSX
+
+2. Configure your environment
+     Linux: proceed to next step
+     OSX: 
+        A.  Image::ExifTool gets installed into /usr/bin/lib which is outside
+            perl's include path. To remedy this, add the following line to 
+            ~/.bashrc: 
+                export PERL5LIB=/usr/bin/lib
+            Then source that into your environment:
+                source ~/.bashrc
+3. Get the script. Save it wherever you want. I recommend /usr/local/bin so that
+   it is in your path. 
+
+USAGE EXAMPLE:
+--------------
+
+Assume we shot an event and used three cameras: cameraA, cameraB, and cameraC.
+Create a folder "event_name" and then four sub-folders: event_name/cameraA,
+event_name/cameraB, event_name/cameraC, and event_name/output. Download the 
+files from the cameras into their respective folders. Change directories into
+the event_name directory.
+
+The script takes a few arguments. First, it takes a prefix string. I don’t
+like how my Nikon names files DSC_XXXX.NEF, so instead of using DSC, my script
+renames the output files to prefix_XXXX.NEF. I personally prefer not having
+spaces in my file names, but if you do, make sure to put the prefix in quotes.
+The next argument is the path (relative or absolute) to the output directory.
+Then, you can put as many input directories as you want. For our example, I
+would run the script as:
+
+order_cron.pl Event_Name outdir cameraA cameraB cameraC
+
+If you didn't put the script into /usr/local/bin, you may need to use the full
+path to the script.
+
+What this does is reads through all of the EXIF data in the files in each of the
+input directories, compares and orders the files based on the timestamp in the
+EXIF data, then outputs the files into the output directory in chronological
+order named something like Event_Name_001.NEF.  
+
+You may notice that I’m simply copying files out of the source directories and
+into the output directories. This means if you shoot 4G worth of source pictures,
+you will need 8G total disk space (4G for the source files plus 4G for the files
+in outdir). I did it this way out of caution…if you type a wrong argument (wrong
+prefix, for example), it’s easy to just delete the files from outdir and re-run
+the script. If you’re daring and don’t want to copy the files, but want to move
+them instead (meaning remove them from the source directory and only keep them in
+outdir), then change the word “copy” to “move” on the following line:
+    copy($file, $newfile);

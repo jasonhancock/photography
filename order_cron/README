@@ -35,7 +35,8 @@ INSTALLATION
             Then source that into your environment:
                 source ~/.bashrc
 3. Get the script. Save it wherever you want. I recommend /usr/local/bin so that
-   it is in your path. 
+   it is in your path. Make sure it is executable: 
+        chmod 755 /path/to/order_cron.pl
 
 USAGE EXAMPLE:
 --------------

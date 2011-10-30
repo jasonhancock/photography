@@ -16,7 +16,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see http://www.gnu.org/licenses/.
 
 INSTALLATION
 ------------
@@ -67,9 +67,9 @@ order named something like Event_Name_001.NEF.
 You may notice that I’m simply copying files out of the source directories and
 into the output directories. This means if you shoot 4G worth of source pictures,
 you will need 8G total disk space (4G for the source files plus 4G for the files
-in outdir). I did it this way out of caution…if you type a wrong argument (wrong
-prefix, for example), it’s easy to just delete the files from outdir and re-run
-the script. If you’re daring and don’t want to copy the files, but want to move
+in outdir). I did it this way out of caution. If you type a wrong argument (wrong
+prefix, for example), it's easy to just delete the files from outdir and re-run
+the script. If you're daring and don't want to copy the files, but want to move
 them instead (meaning remove them from the source directory and only keep them in
-outdir), then change the word “copy” to “move” on the following line:
+outdir), then change the word 'copy' to 'move' on the following line:
     copy($file, $newfile);
